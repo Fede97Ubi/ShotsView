@@ -1,0 +1,49 @@
+:root {
+  --color_softWhite: rgb(227, 227, 227);
+  --color_softBlack: rgb(44, 44, 44);
+}
+* {
+  /* border-radius: 8px; */
+}
+
+.box {
+  /* color: var(--color_lightgray); */
+  color: rgb(227, 227, 227);
+  margin: 66px 0 0 0;
+  padding: 30px 50px 30px 50px;
+  text-align: center;
+}
+
+.input {
+  color: var(--color_softBlack);
+  margin: 5px;
+  padding: 0 5px;
+  border-radius: 8px;
+}
+.button {
+  width: 100px;
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.texting {
+  width: 100px;
+  border-radius: 8px;
+}
+
+.credentialForm {
+  border-radius: 16px;
+  padding: 10px 0;
+  background-color: rgb(117, 117, 117);
+}
+
+.errorColor {
+  color: rgb(255, 97, 97);
+  font-size: medium;
+
+  margin: 10px 0 0 0;
+}
+
+.textBlack {
+  color: var(--color_softBlack);
+}

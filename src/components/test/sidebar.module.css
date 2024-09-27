@@ -1,0 +1,115 @@
+.sidebarDiv * {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.sidebarDiv {
+  background-color: rgb(146, 147, 156);
+}
+
+.container {
+  width: 100%;
+  min-width: 100vh;
+}
+
+.sidebar {
+  width: 256px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: rgb(187, 213, 180);
+  padding: 24px;
+  border-radius: 30px;
+}
+
+.sidebar .head {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid red;
+}
+
+.userImg {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userImg img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.userDetails .title,
+.menu .title {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgb(255, 247, 0);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.userDetails .name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.icon {
+  width: 20px;
+}
+
+.menu ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.menu ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(137, 137, 137); /* text color of sidebar nav menu */
+  text-decoration: none;
+  padding: 12px 8px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.menu ul li a:hover,
+.menu ul li:active a {
+  color: rgb(212, 0, 255);
+  background-color: rgb(14, 219, 255);
+}
+
+.menu ul li .icon {
+  font-size: 20px;
+}
+
+.smallText {
+  font-size: 12px;
+}
+
+.text {
+  flex: 1;
+}
+
+.menu ul li .arrow {
+  width: 20px;
+}
+
+.menu .subMenu {
+  /* display: none; */
+  margin-left: 20px;
+  padding-left: 2opx;
+  padding-top: 5px;
+  border-left: 1px solid red;
+}
+
+.menu .subMenu li a {
+  padding: 10px 8px;
+  font-size: 10px;
+}

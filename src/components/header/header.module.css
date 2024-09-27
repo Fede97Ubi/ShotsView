@@ -1,0 +1,158 @@
+:root {
+  --color_softWhite: rgb(227, 227, 227);
+  --radiusOfBorder: 12px;
+}
+
+* {
+  /* font-family: Roboto, "Arial", sans-serif; */
+  /* color: var(--color_softWhite); */
+}
+.container * {
+  font: italic small-caps 16px/2 cursive;
+}
+
+.container {
+  top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  height: 66px; /* modificare anche margin in home */
+  padding: 0;
+  border: 0px;
+  background-color: rgb(133, 133, 133) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  flex-direction: row;
+}
+
+/*flex griglia*/
+.flexgrid {
+  background: var(--color_lightgray);
+  display: flex;
+  align-items: center;
+}
+.col10 {
+  width: 10%;
+}
+.col20 {
+  width: 20%;
+}
+.col30 {
+  width: 30%;
+}
+.col40 {
+  width: 40%;
+}
+.col50 {
+  width: 50%;
+}
+.col60 {
+  width: 60%;
+}
+.col70 {
+  width: 70%;
+}
+.col80 {
+  width: 80%;
+}
+.col90 {
+  width: 90%;
+}
+.col100 {
+  width: 100%;
+}
+
+.left {
+  padding: 0 0 0 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mid {
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0px;
+  padding: 0 20px 0 0;
+}
+
+/*left*/
+.start {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.imageH {
+  width: 100%;
+  height: 25px;
+}
+
+img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.hamburger {
+  background-color: rgba(0, 0, 0, 0);
+  height: auto;
+  width: 40px;
+  filter: invert(0.95);
+  cursor: pointer;
+  border: 0;
+  padding: 2px;
+  margin-right: 20px;
+}
+
+.hamburgerCss {
+  border-radius: 8px;
+}
+
+.imageL {
+  width: 100%;
+  height: 50px;
+}
+
+.logo {
+  cursor: pointer;
+  border: 0;
+  padding: 0px;
+  margin-right: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgb(255, 255, 255);
+}
+
+/*mid*/
+.input {
+  border-radius: 40px;
+  padding: 0 8px 0 8px;
+}
+
+/*right*/
+.button {
+  border-radius: var(--radiusOfBorder);
+}
+
+.userDiv {
+  display: flex;
+  align-items: center;
+  /* padding: 0 20px; */
+}
+
+.user {
+  border-radius: 40px;
+  box-shadow: 0 0 6px rgb(0, 0, 0);
+
+  background: linear-gradient(
+    150deg,
+    rgba(252, 179, 110, 1),
+    rgba(250, 85, 132, 1),
+    rgba(189, 38, 189, 1),
+    rgba(57, 74, 209, 1)
+  );
+  padding: 10px;
+  margin: 0 0 0 10px;
+}

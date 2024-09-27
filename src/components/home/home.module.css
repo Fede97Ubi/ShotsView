@@ -1,0 +1,30 @@
+.home {
+  /* distanza obbligata dalla dimenzione dell'header */
+  margin: 66px 0 0 0;
+  /* background-color: rgb(227, 227, 227); */
+}
+
+.box {
+  display: flex;
+  /* position: relative; */
+}
+
+.sidebar {
+  top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  height: 100%; /* modificare anche margin in home */
+  padding: 0;
+  border: 0px;
+  background-color: rgb(133, 133, 133) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  flex-direction: row;
+}
+
+.messageToLogin {
+  text-align: center;
+  margin: 100px;
+  width: 100%;
+  font: italic small-caps 20px/2 cursive;
+}
