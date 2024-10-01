@@ -21,6 +21,9 @@ export const registerAuth = async (email, password) => {
     if (error.message == "Firebase: Error (auth/invalid-email).") {
       return "email non valida";
     }
+    if (error.message == "Firebase: Error (auth/network-request-failed).") {
+      return "non è possibile raggiungere il sito, controllare la connessione ad internet";
+    }
     console.log("nuovo errore da gestire");
     return "Register: nuovo errore da gestire " + error.message;
   }
