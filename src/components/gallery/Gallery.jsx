@@ -94,6 +94,32 @@ export default function Gallery({ filter, folder, setFolder }) {
     setPhotoGallery((photo) => photo.filter((item) => item !== e));
   };
 
+  const tryDownload = () => {
+    console.log("test dowload avviato");
+
+    getDownloadURL(ref(fireStorage, "fireImage/faflogo.png"))
+      .then((url) => {
+        // `url` is the download URL for 'images/stars.jpg'
+
+        // This can be downloaded directly:
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = "blob";
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open("GET", url);
+        xhr.send();
+
+        // // Or inserted into an <img> element
+        // const img = document.getElementById("myimg");
+        // img.setAttribute("src", url);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.log("testDownload error: " + error);
+      });
+  };
+
   return (
     <div className={styles.allBox}>
       <div className={styles.container}>
@@ -141,6 +167,11 @@ export default function Gallery({ filter, folder, setFolder }) {
               </div>
             </div>
           ))}
+        <div>
+          <button className={styles.photoDiv} onClick={() => tryDownload()}>
+            click to try download
+          </button>
+        </div>
       </div>
     </div>
   );
