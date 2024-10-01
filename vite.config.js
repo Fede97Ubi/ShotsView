@@ -16,17 +16,17 @@ export default defineConfig({
         short_name: "Vite PWA Project",
         icons: [
           {
-            src: "pwa-64x64.png",
+            src: "shotsview-64x64.png",
             sizes: "64x64",
             type: "image/png",
           },
           {
-            src: "pwa-192x192.png",
+            src: "shotsview-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "pwa-512x512.png",
+            src: "shotsview-512x512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any",
@@ -36,6 +36,22 @@ export default defineConfig({
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",
+          },
+        ],
+        screenshots: [
+          {
+            src: "maskable-icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            form_factor: "wide",
+            label: "screnshot test wide",
+          },
+          {
+            src: "maskable-icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            form_factor: "narrow",
+            label: "screnshot test narrow",
           },
         ],
       },
