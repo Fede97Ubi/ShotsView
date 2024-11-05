@@ -7,9 +7,12 @@ import {
   getDownloadURL,
   listAll,
   ref,
+  getBlob,
 } from "firebase/storage";
 import { fireStorage, auth } from "../firebase/firebase-config";
 import { useEffect, useState } from "react";
+import { saveAs } from "file-saver";
+import axios from "axios";
 
 export default function Gallery({ filter, folder, setFolder }) {
   const [photoGallery, setPhotoGallery] = useState([]);
@@ -109,6 +112,31 @@ export default function Gallery({ filter, folder, setFolder }) {
         };
         xhr.open("GET", url);
         xhr.send();
+
+        // 4. Questo codice viene chiamato dopo la ricezione della risposta
+        xhr.onload = function () {
+          if (xhr.status != 200) {
+            // analizza lo status HTTP della risposta
+            alert(`Error ${xhr.status}: ${xhr.statusText}`); // ad esempio 404: Not Found
+          } else {
+            // mostra il risultato
+            // alert(`Done, got ${xhr.response.length} bytes`); // response contiene la risposta del server
+            console.log(xhr.response);
+            saveAs(xhr.response, "test.png");
+          }
+        };
+
+        xhr.onprogress = function (event) {
+          if (event.lengthComputable) {
+            // alert(`Received ${event.loaded} of ${event.total} bytes`);
+          } else {
+            alert(`Received ${event.loaded} bytes`); // nessun Content-Length
+          }
+        };
+
+        xhr.onerror = function () {
+          alert("Request failed");
+        };
 
         // // Or inserted into an <img> element
         // const img = document.getElementById("myimg");
