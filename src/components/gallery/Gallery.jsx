@@ -179,7 +179,8 @@ export default function Gallery({ filter, folder, setFolder }) {
           .filter((element) =>
             element
               .slice(element.lastIndexOf("%") + 3, element.lastIndexOf("?"))
-              .includes(filter)
+              .toLowerCase()
+              .includes(filter.toLowerCase())
           )
           .map((e) => (
             <div id="photoDiv" key={e} className={styles.fileDiv}>
