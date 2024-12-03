@@ -1,5 +1,6 @@
 import styles from "./gallery.module.css";
 import trashbin from "../../icon/trashbin.png";
+import download from "../../icon/download.png";
 import plus from "../../icon/plus.png";
 import {
   uploadBytes,
@@ -72,6 +73,7 @@ export default function Gallery({ filter, folder, setFolder }) {
           allFile.items.forEach((val) =>
             getDownloadURL(val).then((url) => {
               setPhotoGallery((data) => [...data, url]);
+              console.log(url);
             })
           );
         });
@@ -87,20 +89,25 @@ export default function Gallery({ filter, folder, setFolder }) {
   // delete
   const [list, setList] = useState([]);
   const deleteImage = (e) => {
-    console.log("test " + e);
+    console.log("test delete image " + e);
     const elem = e
       .substring(e.indexOf("shotsview-2024.appspot.com") + 29, e.indexOf("?"))
       .replace("%40", "@")
-      .replaceAll("%2F", "/");
+      .replaceAll("%2F", "/")
+      .replaceAll("%20", " ");
     const delRef = ref(fireStorage, elem);
     deleteObject(delRef);
     setPhotoGallery((photo) => photo.filter((item) => item !== e));
   };
 
-  const tryDownload = () => {
-    console.log("test dowload avviato");
-
-    getDownloadURL(ref(fireStorage, "fireImage/faflogo.png"))
+  const downloadImage = (e) => {
+    console.log("test download image " + e);
+    const elem = e
+      .substring(e.indexOf("shotsview-2024.appspot.com") + 29, e.indexOf("?"))
+      .replace("%40", "@")
+      .replaceAll("%2F", "/")
+      .replaceAll("%20", " ");
+    getDownloadURL(ref(fireStorage, elem))
       .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
 
@@ -144,7 +151,7 @@ export default function Gallery({ filter, folder, setFolder }) {
       })
       .catch((error) => {
         // Handle any errors
-        console.log("testDownload error: " + error);
+        console.log("download error: " + error);
       });
   };
 
@@ -178,7 +185,7 @@ export default function Gallery({ filter, folder, setFolder }) {
             <div id="photoDiv" key={e} className={styles.fileDiv}>
               <div className={styles.photoDiv}>
                 <button
-                  className={styles.button}
+                  className={styles.buttonTrash}
                   id="del"
                   onClick={() => deleteImage(e)}
                 >
@@ -186,11 +193,22 @@ export default function Gallery({ filter, folder, setFolder }) {
                     <img src={trashbin}></img>
                   </div>
                 </button>
+                <button
+                  className={styles.buttonDownload}
+                  id="del"
+                  onClick={() => downloadImage(e)}
+                >
+                  <div className={styles.imageDownload}>
+                    <img src={download}></img>
+                  </div>
+                </button>
                 <img className={styles.photo} src={e}></img>
               </div>
               <div className={styles.fileNameDiv}>
                 <p className={styles.fileName}>
-                  {e.slice(e.lastIndexOf("%") + 3, e.lastIndexOf("?"))}
+                  {e
+                    .slice(e.lastIndexOf("%2F") + 3, e.lastIndexOf("?"))
+                    .replaceAll("%20", " ")}
                 </p>
               </div>
             </div>

@@ -71,13 +71,13 @@
   text-overflow: ellipsis;
 }
 
-.button {
+.buttonTrash {
   color: rgba(255, 255, 255, 0.966);
   text-shadow: 1px 1px rgb(108, 0, 137);
   background: linear-gradient(
     150deg,
-    rgba(252, 179, 110, 0.6),
-    rgba(189, 38, 189, 0.6)
+    rgba(210, 210, 210, 0.6),
+    rgba(73, 73, 73, 0.6)
   );
   border-radius: calc(var(--radiusPhoto) - 0px);
   border: 1px solid rgb(87, 87, 87);
@@ -87,7 +87,8 @@
   right: 2px;
   padding: 2px 5px;
 }
-.button:hover {
+
+.buttonTrash:hover {
   background: linear-gradient(
     150deg,
     rgba(252, 179, 110, 1),
@@ -96,6 +97,36 @@
 }
 
 .imageTrashbin {
+  width: 100%;
+  height: 22px;
+}
+
+.buttonDownload {
+  color: rgba(255, 255, 255, 0.966);
+  text-shadow: 1px 1px rgb(108, 0, 137);
+  background: linear-gradient(
+    150deg,
+    rgba(210, 210, 210, 0.6),
+    rgba(73, 73, 73, 0.6)
+  );
+  border-radius: calc(var(--radiusPhoto) - 0px);
+  border: 1px solid rgb(87, 87, 87);
+  /* box-shadow: 0 0 6px rgb(255, 255, 255); */
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  padding: 2px 2px;
+}
+
+.buttonDownload:hover {
+  background: linear-gradient(
+    150deg,
+    rgba(252, 179, 110, 1),
+    rgba(189, 38, 189, 1)
+  );
+}
+
+.imageDownload {
   width: 100%;
   height: 22px;
 }
