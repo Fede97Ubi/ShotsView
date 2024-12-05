@@ -67,13 +67,14 @@ export default function Gallery({ filter, folder, setFolder }) {
         setAuthUser(authUser);
         const folderRefTry = ref(
           fireStorage,
-          "users-private-folders/" + authUser.email + "-id/files"
+          // "users-private-folders/" + authUser.email + "-id/files"
+          folder
         );
         listAll(folderRefTry).then((allFile) => {
           allFile.items.forEach((val) =>
             getDownloadURL(val).then((url) => {
               setPhotoGallery((data) => [...data, url]);
-              console.log(url);
+              // console.log(url);
             })
           );
         });
@@ -86,15 +87,23 @@ export default function Gallery({ filter, folder, setFolder }) {
     };
   }, []);
 
-  // delete
-  const [list, setList] = useState([]);
-  const deleteImage = (e) => {
-    console.log("test delete image " + e);
-    const elem = e
+  function internalPath(e) {
+    return e
       .substring(e.indexOf("shotsview-2024.appspot.com") + 29, e.indexOf("?"))
       .replace("%40", "@")
       .replaceAll("%2F", "/")
       .replaceAll("%20", " ");
+  }
+
+  function getNameOfFile(elem) {
+    return elem.substring(elem.lastIndexOf("/") + 1);
+  }
+
+  // delete
+  const [list, setList] = useState([]);
+  const deleteImage = (e) => {
+    console.log("test delete image " + e);
+    const elem = internalPath(e);
     const delRef = ref(fireStorage, elem);
     deleteObject(delRef);
     setPhotoGallery((photo) => photo.filter((item) => item !== e));
@@ -102,11 +111,7 @@ export default function Gallery({ filter, folder, setFolder }) {
 
   const downloadImage = (e) => {
     console.log("test download image " + e);
-    const elem = e
-      .substring(e.indexOf("shotsview-2024.appspot.com") + 29, e.indexOf("?"))
-      .replace("%40", "@")
-      .replaceAll("%2F", "/")
-      .replaceAll("%20", " ");
+    const elem = internalPath(e);
     getDownloadURL(ref(fireStorage, elem))
       .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
@@ -129,7 +134,8 @@ export default function Gallery({ filter, folder, setFolder }) {
             // mostra il risultato
             // alert(`Done, got ${xhr.response.length} bytes`); // response contiene la risposta del server
             console.log(xhr.response);
-            saveAs(xhr.response, "test.png");
+            const fileName = getNameOfFile(elem);
+            saveAs(xhr.response, fileName);
           }
         };
 

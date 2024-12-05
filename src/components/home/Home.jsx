@@ -18,38 +18,6 @@ function Home() {
       if (user != null) {
         setUser(user.email);
         setFolder("users-private-folders/" + user.email + "-id/files");
-
-        // questo è il meccanismo che ha riscontrato il problema delle cors policies
-        // var userInfoPath =
-        //   "users-private-folders/" + user.email + "-id/userInfo.json";
-        // const userInfo = ref(fireStorage, userInfoPath);
-        // getDownloadURL(userInfo)
-        //   .then((url) => {
-        //     console.log(url);
-        //     // const xhr = new XMLHttpRequest();
-        //     // xhr.responseType = "blob";
-        //     // xhr.onload = (event) => {
-        //     //   const blob = xhr.response;
-        //     // };
-        //     // xhr.open("GET", url);
-        //     // xhr.send();
-        //     // xhr.onprogress = function (event) {
-        //     //   // triggers periodically
-        //     //   // event.loaded - how many bytes downloaded
-        //     //   // event.lengthComputable = true if the server sent Content-Length header
-        //     //   // event.total - total number of bytes (if lengthComputable)
-        //     //   alert(`Received ${event.loaded} of ${event.total}`);
-        //     // };
-        //   })
-        //   .catch((err) => {
-        //     console.log(
-        //       // si verifica anche quando viene fatta la registrazione
-        //       // perchè ancora il file non è stato creato
-        //       "ERRORE (non considerare in fase di registrazione), file non trovato, " +
-        //         "oppure errore nella logica di sviluppo o account troppo vecchio"
-        //     );
-        //     setFolder("public");
-        //   });
       } else {
         setUser("ospite");
         setFolder("public");
