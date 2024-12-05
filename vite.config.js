@@ -12,8 +12,8 @@ export default defineConfig({
       manifest: {
         description: "testmanifest",
         theme_color: "#aaafff",
-        name: "Vite PWA Project",
-        short_name: "Vite PWA Project",
+        name: "ShotsView",
+        short_name: "Short-ShotsView",
         icons: [
           {
             src: "shotsview-64x64.png",
