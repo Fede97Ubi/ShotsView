@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import styles from "./header.module.css";
 import hamburgerIcon from "../../icon/hamburger.png";
-import logo from "../../icon/shotsview_logo+text.png";
+import logo from "../../icon/shotsview_logo+text-min.png";
 import { CurrentUser, logoutAuth } from "../auth/AuthPage";
 
 export default function Header({ setFilter }) {

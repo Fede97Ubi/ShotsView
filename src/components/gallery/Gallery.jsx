@@ -1,7 +1,7 @@
 import styles from "./gallery.module.css";
-import trashbin from "../../icon/trashbin.png";
+import trashbin from "../../icon/trashbin-min.png";
 import download from "../../icon/download.png";
-import plus from "../../icon/plus.png";
+import plus from "../../icon/plus-min.png";
 import {
   uploadBytes,
   deleteObject,
@@ -10,7 +10,11 @@ import {
   ref,
   getBlob,
 } from "firebase/storage";
-import { fireStorage, auth } from "../firebase/firebase-config";
+import {
+  fireStorage,
+  auth,
+  realTimeDatabase,
+} from "../firebase/firebase-config";
 import { useEffect, useState } from "react";
 import { saveAs } from "file-saver";
 import axios from "axios";
@@ -220,11 +224,6 @@ export default function Gallery({ filter, folder, setFolder }) {
               </div>
             </div>
           ))}
-        <div>
-          <button className={styles.photoDiv} onClick={() => tryDownload()}>
-            click to try download
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -5,8 +5,8 @@
 .allBox {
   /* display: inline; */
   /* margin: 0; */
-  /* width: calc(100% - 250px);  /* serve solo con la sidebar*/
-  width: 100%;
+  width: calc(100% - 250px); /* serve solo con la sidebar*/
+  /* width: 100%; */
 }
 
 .container {
