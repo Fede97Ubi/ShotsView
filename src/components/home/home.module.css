@@ -33,7 +33,7 @@
   width: calc(100% - 250px); /* serve solo con la sidebar*/
 }
 
-.darkBackgroud {
+.newFolderDivMenu {
   background: linear-gradient(
     150deg,
     rgba(252, 179, 110, 0.2),
@@ -44,4 +44,45 @@
 }
 .menu {
   border-radius: 10px;
+}
+
+.softColor {
+  background: linear-gradient(
+    150deg,
+    rgba(252, 179, 110, 0.2),
+    rgba(250, 85, 132, 0.2),
+    rgba(189, 38, 189, 0.2),
+    rgba(57, 74, 209, 0.2)
+  );
+}
+.softColorR {
+  background: linear-gradient(
+    40deg,
+    rgba(252, 179, 110, 0.2),
+    rgba(250, 85, 132, 0.2),
+    rgba(189, 38, 189, 0.2),
+    rgba(57, 74, 209, 0.2)
+  );
+}
+
+.newFolderDivIn {
+  /* text-align: center; */
+  /* height: 50px; */
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 6px rgb(0, 0, 0);
+  padding: 5px;
+  margin: 5px 10px;
+}
+
+.newNameInput {
+  outline: none;
+  border: 0px;
+}
+
+.newFolderButton {
+  height: 20px;
+  border: 0px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.127);
 }

@@ -127,6 +127,7 @@ img {
 
 /*mid*/
 .input {
+  outline: none;
   border-radius: 40px;
   padding: 0 8px 0 8px;
   border: solid rgb(41, 41, 41) 1px;

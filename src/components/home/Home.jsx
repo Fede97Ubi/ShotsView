@@ -23,7 +23,9 @@ function Home() {
 
   const [adminPublicFolder, setAdminPublicFolder] = useState([]);
   const [publicFolder, setPublicFolder] = useState([]);
-  var userFolderPath = "test";
+
+  const [newName, setNewName] = useState("");
+  var userFolderPath = "none";
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged((user) => {
       if (user != null) {
@@ -32,19 +34,31 @@ function Home() {
         userFolderPath = "users/" + mailForRD(user.email) + "/publicFolder";
         const starCountRef = ref(realTimeDatabase, userFolderPath);
         onValue(starCountRef, (snapshot) => {
+          const updateAPF = [];
+          const updatePF = [];
           const data = snapshot.val();
-          setPublicFolder([]);
           for (const key in data) {
             if (data[key].role == "admin") {
               if (!adminPublicFolder.includes(key)) {
-                setAdminPublicFolder((old) => [...old, key]);
+                // setAdminPublicFolder((old) => [...old, key]);
+                updateAPF.push(key);
               }
             } else {
               if (!publicFolder.includes(key)) {
-                setPublicFolder((old) => [...old, key]);
+                // setPublicFolder((old) => [...old, key]);
+                updatePF.push(key);
               }
             }
           }
+          if (updateAPF.length == 0) {
+            updateAPF.push("none");
+          }
+          if (updatePF.length == 0) {
+            updatePF.push("none");
+          }
+          setAdminPublicFolder(updateAPF);
+          setPublicFolder(updatePF);
+          // console.log(adminPublicFolder);
         });
       } else {
         setUser("ospite");
@@ -96,6 +110,10 @@ function Home() {
     setFolder("users-shared-folders/" + e + "-id/files");
   }
 
+  function testHome() {
+    console.log(publicFolder);
+  }
+
   return (
     <div className={styles.home}>
       {/* {CurrentUser()} servira'*/}
@@ -115,20 +133,35 @@ function Home() {
               <SubMenu label="Shared folders">
                 <SubMenu
                   label="Create new shared folders"
-                  className={styles.darkBackgroud}
+                  className={styles.newFolderDivMenu}
                   // onClick={() => newPublicFolder(user)}
                 >
-                  <MenuItem> none </MenuItem>
+                  <div className={styles.softColor}>
+                    <div className={styles.newFolderDivIn}>
+                      <input
+                        className={styles.newNameInput}
+                        placeholder=" new folder name"
+                        onChange={(e) => {
+                          setNewName(e.target.value);
+                        }}
+                      ></input>
+                      <button
+                        className={styles.newFolderButton}
+                        onClick={() => newPublicFolder(user, newName)}
+                      >
+                        create
+                      </button>
+                    </div>
+                  </div>
                 </SubMenu>
-                <MenuItem onClick={() => readTest3()}> readFolder </MenuItem>
-                <SubMenu label="My shared folder">
+                <SubMenu label="My shared folder" className={styles.softColorR}>
                   {adminPublicFolder.map((e) => (
                     <MenuItem key={e} onClick={() => setPublicGallery(e)}>
                       {e}
                     </MenuItem>
                   ))}
                 </SubMenu>
-                <SubMenu label="Public folder">
+                <SubMenu label="Public folder" className={styles.softColor}>
                   {publicFolder.map((e) => (
                     <MenuItem key={e} onClick={() => setPublicGallery(e)}>
                       {e}
@@ -137,6 +170,7 @@ function Home() {
                 </SubMenu>
               </SubMenu>
               <MenuItem> Profilo utente </MenuItem>
+              <MenuItem onClick={() => testHome()}>test button</MenuItem>
             </Menu>
           </Sidebar>
           <div className={styles.mainBox}>

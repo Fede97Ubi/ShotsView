@@ -84,8 +84,8 @@ function checkRD(path) {
 }
 
 // tentativo di creare nuova cartella condivisa
-export function newPublicFolder(user) {
-  const folderName = Math.floor(Math.random(100) * 100); // limite impostato per leggere meglio in fase di debug
+export function newPublicFolder(user, folderName) {
+  // const folderName = Math.floor(Math.random(100) * 100); // limite impostato per leggere meglio in fase di debug
   // id da sostituire con il nome ----------------------
   const publicFolderPath = "publicFolder/" + folderName;
   const userFolderPath =
