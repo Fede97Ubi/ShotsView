@@ -86,3 +86,43 @@
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.127);
 }
+
+.folderName {
+  margin: auto;
+}
+/* add/remove user to folder */
+
+.softColorMember {
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  background: linear-gradient(
+    150deg,
+    rgba(252, 179, 110, 0.3),
+    rgba(250, 85, 132, 0.3),
+    rgba(189, 38, 189, 0.3),
+    rgba(57, 74, 209, 0.3)
+  );
+}
+
+.memberDiv {
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 6px rgb(0, 0, 0);
+  padding: 5px;
+  margin: 5px 10px;
+}
+
+.memberInput {
+  width: 250px;
+  outline: none;
+  border: 0px;
+}
+
+.memberButton {
+  height: 20px;
+  border: 0px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.127);
+}

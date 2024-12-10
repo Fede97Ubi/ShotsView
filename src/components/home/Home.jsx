@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import {
   newPublicFolder,
-  test,
-  folderSet,
   mailForRD,
+  addMember,
 } from "../realtimeDatabase/RealtimeDatabase";
 import { auth, realTimeDatabase } from "../firebase/firebase-config";
 import { ref, onValue, off } from "firebase/database";
@@ -102,16 +101,76 @@ function Home() {
   // }, [folderSet]);
 
   function setMyGallery(user) {
-    console.log("setMyGallery");
-    setFolder("users-private-folders/" + user + "-id/files");
+    // console.log("setMyGallery");
+    setFolder("users-private-folders/" + user + "/files");
   }
   function setPublicGallery(e) {
-    console.log("setGallery " + e);
-    setFolder("users-shared-folders/" + e + "-id/files");
+    // console.log("setGallery " + e);
+    setFolder("users-shared-folders/" + e + "/files");
   }
+
+  function createPublicFolder(user, newName) {
+    if (newPublicFolder(user, newName)) {
+      setPublicGallery(newName);
+    }
+  }
+
+  const [member, setMember] = useState("");
 
   function testHome() {
     console.log(publicFolder);
+  }
+
+  function upMenu(folder) {
+    const folderShortName = folder.substring(
+      folder.indexOf("/") + 1,
+      folder.lastIndexOf("/")
+    );
+    return (
+      <div className={styles.softColorMember}>
+        {adminPublicFolder.includes(folderShortName) ? (
+          <div className={styles.memberDiv}>
+            <input
+              className={styles.memberInput}
+              placeholder="friend email"
+              onChange={(e) => {
+                setMember(e.target.value);
+              }}
+            ></input>
+            <button
+              className={styles.memberButton}
+              onClick={() => addMember(member, folderShortName)}
+            >
+              add
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+        <h3 className={styles.folderName}>
+          {folderShortName == user ? "Personal gallery" : folderShortName}
+        </h3>
+        {adminPublicFolder.includes(folderShortName) ? (
+          <div className={styles.memberDiv}>
+            <input
+              className={styles.memberInput}
+              placeholder="friend email"
+              onChange={(e) => {
+                setMember(e.target.value);
+              }}
+            ></input>
+            <button
+              className={styles.memberButton}
+              onClick={() => removeMember(member)}
+            >
+              remove
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+    );
   }
 
   return (
@@ -147,7 +206,7 @@ function Home() {
                       ></input>
                       <button
                         className={styles.newFolderButton}
-                        onClick={() => newPublicFolder(user, newName)}
+                        onClick={() => createPublicFolder(user, newName)}
                       >
                         create
                       </button>
@@ -174,7 +233,8 @@ function Home() {
             </Menu>
           </Sidebar>
           <div className={styles.mainBox}>
-            <div>ciaooooo</div>
+            {upMenu(folder)}
+
             <Gallery filter={filter} folder={folder} setFolder={setFolder} />
           </div>
         </div>

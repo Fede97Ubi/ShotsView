@@ -1,14 +1,5 @@
 import { realTimeDatabase } from "../firebase/firebase-config";
-import {
-  set,
-  ref,
-  onValue,
-  push,
-  update,
-  get,
-  remove,
-  child,
-} from "firebase/database";
+import { set, ref, onValue, get, child } from "firebase/database";
 
 export const folderSet = new Set([]);
 
@@ -93,7 +84,7 @@ export function newPublicFolder(user, folderName) {
   if (checkRD(publicFolderPath) == true) {
     console.log("nome già in uso: " + publicFolderPath);
     // return "nome già in uso"; ----------------------
-    return newPublicFolder(user);
+    // return newPublicFolder(user);
   } else {
     // checkRD(..) == false
     set(ref(realTimeDatabase, publicFolderPath), {
@@ -103,6 +94,7 @@ export function newPublicFolder(user, folderName) {
       role: "admin",
     });
   }
+  return true;
 }
 
 // tentativo di aggiunge un utente con le sue informazioni
@@ -122,6 +114,34 @@ export function newUser(Email, eta, nazione, citta) {
 export function existUser(email) {
   const path = "users/" + mailForRD(Email);
   return checkRD(path);
+}
+
+export function addMember(member, folderName) {
+  const path = "users/" + mailForRD(member);
+  get(child(ref(realTimeDatabase), path))
+    .then((snapshot) => {
+      const data = snapshot.val();
+      const publicFolderPath =
+        "publicFolder/" + folderName + "/" + mailForRD(member);
+      const userFolderPath =
+        "users/" + mailForRD(member) + "/publicFolder/" + folderName;
+      if (data.infoUser.citta) {
+        // aggiungere nome alla lista della cartella condivisa
+        console.log("dioporcone");
+        set(ref(realTimeDatabase, publicFolderPath), {
+          role: "client",
+        });
+        // aggiungere cartella nel profilo utente
+        set(ref(realTimeDatabase, userFolderPath), {
+          role: "client",
+        });
+      }
+    })
+    .catch((error) => {
+      // console.error(error);
+      // console.log("utente non trovato");
+      // notifica utente non esistente ----------------------------------------------------------------------------------------------------------------
+    });
 }
 
 export function test() {

@@ -167,7 +167,7 @@ export default function Gallery({ filter, folder, setFolder }) {
 
   return (
     <div className={styles.allBox}>
-      folder {folder}
+      {/* folder {folder} */}
       <div className={styles.container}>
         <div className={styles.photoDiv}>
           <div className={styles.inputDiv}>
