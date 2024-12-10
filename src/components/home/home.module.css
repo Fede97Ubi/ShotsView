@@ -28,3 +28,20 @@
   width: 100%;
   font: italic small-caps 20px/2 cursive;
 }
+
+.mainBox {
+  width: calc(100% - 250px); /* serve solo con la sidebar*/
+}
+
+.darkBackgroud {
+  background: linear-gradient(
+    150deg,
+    rgba(252, 179, 110, 0.2),
+    rgba(250, 85, 132, 0.2),
+    rgba(189, 38, 189, 0.2),
+    rgba(57, 74, 209, 0.2)
+  );
+}
+.menu {
+  border-radius: 10px;
+}

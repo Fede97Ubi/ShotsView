@@ -1,21 +1,52 @@
 import { realTimeDatabase } from "../firebase/firebase-config";
-import { set, ref, onValue, push } from "firebase/database";
+import {
+  set,
+  ref,
+  onValue,
+  push,
+  update,
+  get,
+  remove,
+  child,
+} from "firebase/database";
 
+export const folderSet = new Set([]);
+
+export function readTest() {
+  const path = "users/test6@test%com/publicFolder";
+  const starCountRef = ref(realTimeDatabase, path);
+  console.log("onValue attivo");
+  onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log("update file: " + data);s
+    for (const key in data) {
+      folderSet.add(data[key].folderName);
+    }
+    // console.log(folderSet);
+  });
+}
+
+// lettura file da path DA RIVEDERE: USO QUESTO MECCANISMO PER IL MANTENIMENTO DELLE CARTELLE CONDIVISA
 function readRD(path) {
   const starCountRef = ref(realTimeDatabase, path);
   onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     // updateStarCount(diocane, data);
+    console.log("update file: " + data);
+    for (const key in data) {
+      console.log(data[key].folderName);
+    }
     return data;
   });
 }
 
-function writeFolderRD(path) {
-  const adminMail = "adminEmail";
-  const folderName = "pincopalloFolder";
-  set(ref(realTimeDatabase, path), {
-    folderName: folderName, // da sostituire con nome scelto
-    adminMail: mailForRD(adminMail), // da sostituire con email dell'utente
+// crea nuova cartella condivisa
+function writeFolderRD(publicFolderPath, userFolderPath, admin) {
+  set(ref(realTimeDatabase, publicFolderPath), {
+    admin: mailForRD(admin),
+  });
+  set(ref(realTimeDatabase, userFolderPath), {
+    role: "admin",
   });
   if (checkRD(path) == true) {
     return "succes";
@@ -24,6 +55,7 @@ function writeFolderRD(path) {
   }
 }
 
+// crea nuovo utente
 function writeUserRD(path, eta, nazione, citta) {
   set(ref(realTimeDatabase, path), {
     eta: eta,
@@ -37,47 +69,103 @@ function writeUserRD(path, eta, nazione, citta) {
   }
 }
 
+// verifica l'esistenza di un file
 function checkRD(path) {
   const refRD = ref(realTimeDatabase, path);
   onValue(refRD, (snapshot) => {
     if (snapshot.val() == null) {
-      console.log(path + " = null");
+      //   console.log(path + " = null");
       return false;
     } else {
-      console.log(path + " = qualcosa");
+      //   console.log(path + " = qualcosa");
       return true;
     }
   });
 }
 
-export function newPublicFolder() {
-  const newFolderId = Math.floor(Math.random(100) * 100); // limite impostato per leggere meglio in fase di debug
-  const path = "publicFolder/";
-  if (checkRD(path + newFolderId) == true) {
-    return newPublicFolder();
+// tentativo di creare nuova cartella condivisa
+export function newPublicFolder(user) {
+  const folderName = Math.floor(Math.random(100) * 100); // limite impostato per leggere meglio in fase di debug
+  // id da sostituire con il nome ----------------------
+  const publicFolderPath = "publicFolder/" + folderName;
+  const userFolderPath =
+    "users/" + mailForRD(user) + "/publicFolder/" + folderName;
+  if (checkRD(publicFolderPath) == true) {
+    console.log("nome già in uso: " + publicFolderPath);
+    // return "nome già in uso"; ----------------------
+    return newPublicFolder(user);
   } else {
     // checkRD(..) == false
-    return writeFolderRD(path + newFolderId);
+    set(ref(realTimeDatabase, publicFolderPath), {
+      admin: mailForRD(user),
+    });
+    set(ref(realTimeDatabase, userFolderPath), {
+      role: "admin",
+    });
   }
 }
 
+// tentativo di aggiunge un utente con le sue informazioni
 export function newUser(Email, eta, nazione, citta) {
-  const newUserId = Math.floor(Math.random(100) * 100); // da sostituire con email
-  const path = "users/" + mailForRD(Email);
-  if (checkRD(path + newUserId) == true) {
+  const path = "users/" + mailForRD(Email) + "/infoUser";
+  if (checkRD(path) == true) {
     // questo controllo dovrebbe essere inutile perché già fatto sugli utenti registrati direttamente
     // è comodo in fase di sviluppo quando sposto il codice
     return "utente già esistente";
   } else {
     // checkRD(..) == false
-    return writeUserRD(path + newUserId, eta, nazione, citta);
+    return writeUserRD(path, eta, nazione, citta);
   }
 }
 
-function mailForRD(email) {
+// restituisce l'esistenza di un utente
+export function existUser(email) {
+  const path = "users/" + mailForRD(Email);
+  return checkRD(path);
+}
+
+export function test() {
+  // inserimento folderPubblica in user/publicFolder/key/folderName
+  const path = "users/test6@test%com/publicFolder";
+  // console.log("dio cane " + readRD(path));
+  // push(ref(realTimeDatabase, path), {
+  //   folderName: "tendone",
+  // });
+
+  // ${userId}
+  // restituisce il risultato
+  // get(child(ref(realTimeDatabase), path))
+  //   .then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       // console.log(snapshot.val());
+  //       const data = snapshot.val();
+  //       for (const key in data) {
+  //         console.log(data[key].folderName);
+  //       }
+  //     } else {
+  //       console.log("No data available");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+
+  // cancellare file
+  // remove(
+  //   ref(
+  //     realTimeDatabase,
+  //     "users/test6@test%com/publicFolder/-ODbu7X9DxIVkyKpoQ1D"
+  //   )
+  // );
+  readRD(path);
+}
+
+// trasforma i caratteri della mail non supportati dal realtime database
+export function mailForRD(email) {
   return email.replace(".", "%");
 }
 
-function mailFromRD(email) {
+// trasforma i caratteri della mail del realtime database come la norma
+export function mailFromRD(email) {
   return email.replace("%", ".");
 }

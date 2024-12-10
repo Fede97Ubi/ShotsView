@@ -89,7 +89,7 @@ export default function Gallery({ filter, folder, setFolder }) {
     return () => {
       unlisten();
     };
-  }, []);
+  }, [folder]);
 
   function internalPath(e) {
     return e
@@ -167,6 +167,7 @@ export default function Gallery({ filter, folder, setFolder }) {
 
   return (
     <div className={styles.allBox}>
+      folder {folder}
       <div className={styles.container}>
         <div className={styles.photoDiv}>
           <div className={styles.inputDiv}>
