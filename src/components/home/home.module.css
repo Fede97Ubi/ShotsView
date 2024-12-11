@@ -126,3 +126,35 @@
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.127);
 }
+
+.folderDescription {
+  display: flex;
+  align-items: center;
+}
+
+.buttonTrash {
+  color: rgba(255, 255, 255, 0.966);
+  text-shadow: 1px 1px rgb(108, 0, 137);
+  background: linear-gradient(
+    150deg,
+    rgba(210, 210, 210, 0.6),
+    rgba(73, 73, 73, 0.6)
+  );
+  border-radius: calc(var(--radiusPhoto) - 0px);
+  border: 1px solid rgb(245, 176, 218);
+  /* box-shadow: 0 0 6px rgb(255, 255, 255); */
+  /* position: absolute;
+  top: 2px;
+  right: 2px; */
+  padding: 2px;
+  margin-right: 5px;
+}
+
+.buttonTrash:hover {
+  background: linear-gradient(150deg, rgba(252, 179, 110, 1), rgb(255, 0, 0));
+}
+
+.imageTrashbin {
+  width: 100%;
+  height: 22px;
+}

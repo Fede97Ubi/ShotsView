@@ -1,6 +1,8 @@
 import Header from "../header/Header";
 import Gallery from "../gallery/Gallery";
 import styles from "./home.module.css";
+import trashbin from "../../icon/trashbin-min.png";
+import backspace from "../../icon/backspace.png";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +11,12 @@ import {
   newPublicFolder,
   mailForRD,
   addMember,
+  removeMember,
+  exitToFolder,
 } from "../realtimeDatabase/RealtimeDatabase";
 import { auth, realTimeDatabase } from "../firebase/firebase-config";
 import { ref, onValue, off } from "firebase/database";
+import { deleteFolder } from "../firebaseStorage/firebaseStorage";
 
 function Home() {
   const navigate = useNavigate();
@@ -50,10 +55,10 @@ function Home() {
             }
           }
           if (updateAPF.length == 0) {
-            updateAPF.push("none");
+            updateAPF.push("Non hai gallerie create");
           }
           if (updatePF.length == 0) {
-            updatePF.push("none");
+            updatePF.push("Non hai gallerie condivise");
           }
           setAdminPublicFolder(updateAPF);
           setPublicFolder(updatePF);
@@ -106,19 +111,46 @@ function Home() {
   }
   function setPublicGallery(e) {
     // console.log("setGallery " + e);
-    setFolder("users-shared-folders/" + e + "/files");
+    if (e != "Non hai gallerie condivise" && e != "Non hai gallerie create") {
+      setFolder("users-shared-folders/" + e + "/files");
+    }
   }
 
   function createPublicFolder(user, newName) {
-    if (newPublicFolder(user, newName)) {
+    if (newPublicFolder(user, newName) == undefined) {
       setPublicGallery(newName);
     }
   }
 
+  const handleEnterKeyCreatePublicFolder = (e) => {
+    if (e.key === "Enter") {
+      createPublicFolder(user, newName);
+    }
+  };
+
   const [member, setMember] = useState("");
 
+  const handleEnterKeyAddMember = (e) => {
+    if (e.key === "Enter") {
+      addMember(member, folderShortName);
+    }
+  };
+
+  const handleEnterKeyRemoveMember = (e) => {
+    if (e.key === "Enter") {
+      removeMember(member, folderShortName);
+    }
+  };
+
+  function exitToFolderMain(e, user) {
+    exitToFolder(e, user);
+    if (e == folder) {
+      setMyGallery(user);
+    }
+  }
+
   function testHome() {
-    console.log(publicFolder);
+    deleteFolder("users-shared-folders/ciao/files");
   }
 
   function upMenu(folder) {
@@ -129,7 +161,7 @@ function Home() {
     return (
       <div className={styles.softColorMember}>
         {adminPublicFolder.includes(folderShortName) ? (
-          <div className={styles.memberDiv}>
+          <div className={styles.memberDiv} onKeyDown={handleEnterKeyAddMember}>
             <input
               className={styles.memberInput}
               placeholder="friend email"
@@ -151,7 +183,10 @@ function Home() {
           {folderShortName == user ? "Personal gallery" : folderShortName}
         </h3>
         {adminPublicFolder.includes(folderShortName) ? (
-          <div className={styles.memberDiv}>
+          <div
+            className={styles.memberDiv}
+            onKeyDown={handleEnterKeyRemoveMember}
+          >
             <input
               className={styles.memberInput}
               placeholder="friend email"
@@ -161,7 +196,7 @@ function Home() {
             ></input>
             <button
               className={styles.memberButton}
-              onClick={() => removeMember(member)}
+              onClick={() => removeMember(member, folderShortName)}
             >
               remove
             </button>
@@ -196,7 +231,10 @@ function Home() {
                   // onClick={() => newPublicFolder(user)}
                 >
                   <div className={styles.softColor}>
-                    <div className={styles.newFolderDivIn}>
+                    <div
+                      className={styles.newFolderDivIn}
+                      onKeyDown={handleEnterKeyCreatePublicFolder}
+                    >
                       <input
                         className={styles.newNameInput}
                         placeholder=" new folder name"
@@ -216,14 +254,44 @@ function Home() {
                 <SubMenu label="My shared folder" className={styles.softColorR}>
                   {adminPublicFolder.map((e) => (
                     <MenuItem key={e} onClick={() => setPublicGallery(e)}>
-                      {e}
+                      <div className={styles.folderDescription}>
+                        {e == "Non hai gallerie create" ? (
+                          <></>
+                        ) : (
+                          <button
+                            className={styles.buttonTrash}
+                            id="del"
+                            onClick={() => exitToFolderMain(e, user)}
+                          >
+                            <div className={styles.imageTrashbin}>
+                              <img src={trashbin}></img>
+                            </div>
+                          </button>
+                        )}
+                        {e}
+                      </div>
                     </MenuItem>
                   ))}
                 </SubMenu>
                 <SubMenu label="Public folder" className={styles.softColor}>
                   {publicFolder.map((e) => (
                     <MenuItem key={e} onClick={() => setPublicGallery(e)}>
-                      {e}
+                      <div className={styles.folderDescription}>
+                        {e == "Non hai gallerie condivise" ? (
+                          <></>
+                        ) : (
+                          <button
+                            className={styles.buttonTrash}
+                            id="del"
+                            onClick={() => exitToFolderMain(e, user)}
+                          >
+                            <div className={styles.imageTrashbin}>
+                              <img src={backspace}></img>
+                            </div>
+                          </button>
+                        )}
+                        {e}
+                      </div>
                     </MenuItem>
                   ))}
                 </SubMenu>

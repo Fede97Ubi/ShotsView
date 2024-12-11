@@ -90,7 +90,6 @@ export default function Gallery({ filter, folder, setFolder }) {
       unlisten();
     };
   }, [folder]);
-
   function internalPath(e) {
     return e
       .substring(e.indexOf("shotsview-2024.appspot.com") + 29, e.indexOf("?"))
@@ -108,6 +107,7 @@ export default function Gallery({ filter, folder, setFolder }) {
   const deleteImage = (e) => {
     console.log("test delete image " + e);
     const elem = internalPath(e);
+    console.log(elem);
     const delRef = ref(fireStorage, elem);
     deleteObject(delRef);
     setPhotoGallery((photo) => photo.filter((item) => item !== e));
