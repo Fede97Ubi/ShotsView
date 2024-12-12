@@ -10,10 +10,16 @@ function App() {
     <div className="App">
       <Header />
       <h1>wecome</h1>
-      <p>
-        questa è la pagina di benvenuto, ci andrebbero novità, pubblicità,
-        aggiornamenti vari, oppure da rimuovere ed andare subito alla propria
-        galleria
+      <p className={styles.text}>
+        Il progetto si prepone l'obbiettivo di creare un archivio online per
+        ogni utente che si registra assegnado un area privata dove caricare
+        scaricare e vedere i propri file e la possibilità di creare delle
+        cartelle condivise dove più utenti possono interagire. E' pensato per
+        essere una galleria online di foto per condividere con altri utenti.
+      </p>
+      <br></br>
+      <p className={styles.text2}>
+        Clicca in alto a destra per registrarti o effettuare il login
       </p>
     </div>
   );

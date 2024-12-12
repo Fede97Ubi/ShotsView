@@ -3,7 +3,7 @@ BREVE DESCRIZIONE:
 Il progetto si prepone l'obbiettivo di creare un archivio online per ogni utente che si registra
 assegnado un area privata dove caricare scaricare e vedere i propri file
 e la possibilità di creare delle cartelle condivise dove più utenti possono interagire.
-E' pensato per essere una galleria online di foto per condividere quelle della vacanza o altro.
+E' pensato per essere una galleria online di foto per condividere con altri utenti.
 
 
 INDICAZIONI SULLE LIMITAZIONI DEL PROGETTO:

@@ -2,3 +2,14 @@ body {
   margin: 0;
   background-color: rgb(227, 227, 227);
 }
+
+.text {
+  padding: 50px 150px;
+  font-size: large;
+}
+
+.text2 {
+  padding: 50px 150px;
+  text-align: center;
+  font-size: x-large;
+}
