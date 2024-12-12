@@ -1,8 +1,8 @@
 import Header from "../header/Header";
 import Gallery from "../gallery/Gallery";
 import styles from "./home.module.css";
-import trashbin from "/src/icon/trashbin-min.png";
-import backspace from "/src/icon/backspace.png";
+// import trashbin from "/src/icon/trashbin-min.png";
+// import backspace from "/src/icon/backspace.png";
 
 import { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
@@ -269,7 +269,7 @@ function Home() {
                             onClick={() => exitToFolderMain(e, user)}
                           >
                             <div className={styles.imageTrashbin}>
-                              <img src={trashbin}></img>
+                              <img src={"/icon/trashbin-min.png"}></img>
                             </div>
                           </button>
                         )}
@@ -291,7 +291,7 @@ function Home() {
                             onClick={() => exitToFolderMain(e, user)}
                           >
                             <div className={styles.imageTrashbin}>
-                              <img src={backspace}></img>
+                              <img src={"/icon/backspace.png"}></img>
                             </div>
                           </button>
                         )}
