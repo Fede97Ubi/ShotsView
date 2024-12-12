@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import styles from "./header.module.css";
 // import hamburgerIcon from "/src/icon/hamburger.png";
-// import logo from "/src/icon/shotsview_logo+text-min.png";
+import logo from "/src/icon/shotsview_logo+text-min.png";
 import { CurrentUser, logoutAuth } from "../auth/AuthPage";
 
 export default function Header({ setFilter }) {
@@ -91,7 +91,7 @@ export default function Header({ setFilter }) {
         </button> */}
         <button className={styles.logo} onClick={() => navigate("/Home")}>
           <div className={styles.imageL}>
-            <img src={"/icon/shotsview_logo+text-min.png"}></img>
+            <img src={logo}></img>
           </div>
         </button>
       </div>

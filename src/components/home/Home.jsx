@@ -1,8 +1,8 @@
 import Header from "../header/Header";
 import Gallery from "../gallery/Gallery";
 import styles from "./home.module.css";
-// import trashbin from "/src/icon/trashbin-min.png";
-// import backspace from "/src/icon/backspace.png";
+import trashbin from "/src/icon/trashbin-min.png";
+import backspace from "/src/icon/backspace.png";
 
 import { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
@@ -153,8 +153,8 @@ function Home() {
 
     const handleEnterKeyAddMember = (e) => {
       if (e.key === "Enter") {
-        console.log("addMember " + member + " in " + folderShortName);
-        addMember(member, folderShortName);
+        // console.log("addMember " + member + " in " + folderShortName);
+        addMember(user, member, folderShortName);
       }
     };
 
@@ -176,7 +176,7 @@ function Home() {
             ></input>
             <button
               className={styles.memberButton}
-              onClick={() => addMember(member, folderShortName)}
+              onClick={() => addMember(user, member, folderShortName)}
             >
               add
             </button>
@@ -269,7 +269,7 @@ function Home() {
                             onClick={() => exitToFolderMain(e, user)}
                           >
                             <div className={styles.imageTrashbin}>
-                              <img src={"/icon/trashbin-min.png"}></img>
+                              <img src={trashbin}></img>
                             </div>
                           </button>
                         )}
@@ -291,7 +291,7 @@ function Home() {
                             onClick={() => exitToFolderMain(e, user)}
                           >
                             <div className={styles.imageTrashbin}>
-                              <img src={"/icon/backspace.png"}></img>
+                              <img src={backspace}></img>
                             </div>
                           </button>
                         )}

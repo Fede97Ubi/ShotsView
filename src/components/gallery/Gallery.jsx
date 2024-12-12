@@ -1,7 +1,7 @@
 import styles from "./gallery.module.css";
-// import trashbin from "/src/icon/trashbin-min.png";
-// import download from "/src/icon/download.png";
-// import plus from "/src/icon/plus-min.png";
+import trashbin from "/src/icon/trashbin-min.png";
+import download from "/src/icon/download.png";
+import plus from "/src/icon/plus-min.png";
 import {
   uploadBytes,
   deleteObject,
@@ -174,7 +174,7 @@ export default function Gallery({ filter, folder, setFolder }) {
             ></input>
             <label htmlFor="upload">
               <div className={styles.imagePlus}>
-                <img src={"/icon/plus-min.png"}></img>
+                <img src={plus}></img>
               </div>
             </label>
           </div>
@@ -196,7 +196,7 @@ export default function Gallery({ filter, folder, setFolder }) {
                   onClick={() => deleteImage(e)}
                 >
                   <div className={styles.imageTrashbin}>
-                    <img src={"/icon/trashbin-min.png"}></img>
+                    <img src={trashbin}></img>
                   </div>
                 </button>
                 <button
@@ -205,7 +205,7 @@ export default function Gallery({ filter, folder, setFolder }) {
                   onClick={() => downloadImage(e)}
                 >
                   <div className={styles.imageDownload}>
-                    <img src={"/icon/download.png"}></img>
+                    <img src={download}></img>
                   </div>
                 </button>
                 <img className={styles.photo} src={e}></img>

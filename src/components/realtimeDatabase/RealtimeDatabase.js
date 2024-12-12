@@ -110,14 +110,7 @@ export function newPublicFolder(user, folderName) {
 // tentativo di aggiunge un utente con le sue informazioni
 export function newUser(Email, eta, nazione, citta) {
   const path = "users/" + mailForRD(Email) + "/infoUser";
-  if (checkRD(path) == true) {
-    // questo controllo dovrebbe essere inutile perché già fatto sugli utenti registrati direttamente
-    // è comodo in fase di sviluppo quando sposto il codice
-    return "utente già esistente";
-  } else {
-    // checkRD(..) == false
-    return writeUserRD(path, eta, nazione, citta);
-  }
+  return writeUserRD(path, eta, nazione, citta);
 }
 
 // restituisce l'esistenza di un utente
@@ -126,7 +119,7 @@ export function existUser(email) {
   return checkRD(path);
 }
 
-export function addMember(member, folderName) {
+export function addMember(admin, member, folderName) {
   const path = "users/" + mailForRD(member);
   get(child(ref(realTimeDatabase), path))
     .then((snapshot) => {
@@ -147,6 +140,16 @@ export function addMember(member, folderName) {
         const notificationPath = "users/" + mailForRD(member) + "/notification";
         push(ref(realTimeDatabase, notificationPath), {
           text: "Sei stato aggiunto alla galleria " + folderName + "!",
+        });
+        const notificationAdminPath =
+          "users/" + mailForRD(admin) + "/notification";
+        push(ref(realTimeDatabase, notificationAdminPath), {
+          text:
+            "La galleria " +
+            folderName +
+            " ha un nuovo membro: " +
+            member +
+            "!",
         });
       }
     })
