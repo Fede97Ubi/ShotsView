@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import styles from "./header.module.css";
-import hamburgerIcon from "../../icon/hamburger.png";
-import logo from "../../icon/shotsview_logo+text-min.png";
+import hamburgerIcon from "/src/icon/hamburger.png";
+import logo from "/src/icon/shotsview_logo+text-min.png";
 import { CurrentUser, logoutAuth } from "../auth/AuthPage";
 
 export default function Header({ setFilter }) {

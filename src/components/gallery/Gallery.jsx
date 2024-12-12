@@ -1,7 +1,7 @@
 import styles from "./gallery.module.css";
-import trashbin from "../../icon/trashbin-min.png";
-import download from "../../icon/download.png";
-import plus from "../../icon/plus-min.png";
+import trashbin from "/src/icon/trashbin-min.png";
+import download from "/src/icon/download.png";
+import plus from "/src/icon/plus-min.png";
 import {
   uploadBytes,
   deleteObject,

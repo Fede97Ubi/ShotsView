@@ -1,8 +1,8 @@
 import Header from "../header/Header";
 import Gallery from "../gallery/Gallery";
 import styles from "./home.module.css";
-import trashbin from "../../icon/trashbin-min.png";
-import backspace from "../../icon/backspace.png";
+import trashbin from "/src/icon/trashbin-min.png";
+import backspace from "/src/icon/backspace.png";
 
 import { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
