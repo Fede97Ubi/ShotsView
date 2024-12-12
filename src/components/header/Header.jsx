@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import styles from "./header.module.css";
-import hamburgerIcon from "/src/icon/hamburger.png";
-import logo from "/src/icon/shotsview_logo+text-min.png";
+// import hamburgerIcon from "/src/icon/hamburger.png";
+// import logo from "/src/icon/shotsview_logo+text-min.png";
 import { CurrentUser, logoutAuth } from "../auth/AuthPage";
 
 export default function Header({ setFilter }) {
@@ -81,14 +81,17 @@ export default function Header({ setFilter }) {
         id="hamburger-home"
         className={styles.col30 + " " + styles.left + " " + styles.start}
       >
-        <button className={styles.hamburger}>
+        {/* <button className={styles.hamburger}>
           <div className={styles.imageH}>
-            <img className={styles.hamburgerCss} src={hamburgerIcon}></img>
+            <img
+              className={styles.hamburgerCss}
+              src={"/icon/hamburger.png"}
+            ></img>
           </div>
-        </button>
+        </button> */}
         <button className={styles.logo} onClick={() => navigate("/Home")}>
           <div className={styles.imageL}>
-            <img src={logo}></img>
+            <img src={"/icon/shotsview_logo+text-min.png"}></img>
           </div>
         </button>
       </div>
