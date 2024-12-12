@@ -5,7 +5,6 @@ import trashbin from "../../icon/trashbin-min.png";
 import backspace from "../../icon/backspace.png";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import {
   newPublicFolder,
@@ -15,11 +14,11 @@ import {
   exitToFolder,
 } from "../realtimeDatabase/RealtimeDatabase";
 import { auth, realTimeDatabase } from "../firebase/firebase-config";
-import { ref, onValue, off } from "firebase/database";
+import { ref, onValue, off, remove } from "firebase/database";
 import { deleteFolder } from "../firebaseStorage/firebaseStorage";
+import { notifierRequest } from "../notifier/Notifier";
 
 function Home() {
-  const navigate = useNavigate();
   const [filter, setFilter] = useState("");
 
   const [user, setUser] = useState("ospite");
@@ -30,6 +29,18 @@ function Home() {
 
   const [newName, setNewName] = useState("");
   var userFolderPath = "none";
+
+  window.addEventListener("offline", (e) => {
+    console.log("offline");
+    notifierRequest("You are offline");
+  });
+
+  window.addEventListener("online", (e) => {
+    console.log("online");
+    window.location.reload();
+    notifierRequest("You return online");
+  });
+
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged((user) => {
       if (user != null) {
@@ -37,6 +48,8 @@ function Home() {
         setMyGallery(user.email);
         userFolderPath = "users/" + mailForRD(user.email) + "/publicFolder";
         const starCountRef = ref(realTimeDatabase, userFolderPath);
+        const notificationPath =
+          "users/" + mailForRD(user.email) + "/notification";
         onValue(starCountRef, (snapshot) => {
           const updateAPF = [];
           const updatePF = [];
@@ -64,12 +77,29 @@ function Home() {
           setPublicFolder(updatePF);
           // console.log(adminPublicFolder);
         });
+        const notificationRef = ref(realTimeDatabase, notificationPath);
+        onValue(notificationRef, (snapshot) => {
+          // aggiungere cosa fare quando si riceve una notifica -----------------------------------------------------------------------------------------------------
+          const data = snapshot.val();
+          for (const newNotify in data) {
+            console.log(data[newNotify].text);
+            if (newNotify != undefined) {
+              notifierRequest(data[newNotify].text);
+              // console.log(notificationPath + "/" + newNotify  );
+            }
+          }
+          remove(ref(realTimeDatabase, notificationPath)); // da finire di testare-----------------------------------------------------------------------------------------------------
+        });
       } else {
         setUser("ospite");
         setFolder("public");
         const starCountRef = ref(realTimeDatabase, userFolderPath);
         off(starCountRef, (snapshot) => {
           // console.log("chiusura listner");
+        });
+        const notifierCloser = ref(realTimeDatabase, notificationPath);
+        off(notifierCloser, (snapshot) => {
+          // console.log("chiusura listner notifiche");
         });
         setPublicFolder([]);
       }
@@ -78,32 +108,6 @@ function Home() {
       unlisten();
     };
   }, []);
-
-  // FUNZIONA
-  // function readTest3() {
-  //   const path = "users/test6@test%com/publicFolder";
-  //   const starCountRef = ref(realTimeDatabase, path);
-  //   onValue(starCountRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     // console.log("update file: " + data);s
-  //     for (const key in data) {
-  //       if (!publicFolder.includes(data[key].folderName)) {
-  //         setPublicFolder((old) => [...old, data[key].folderName]);
-  //       }
-  //     }
-  //     console.log(publicFolder);
-  //     console.log(folderSet);
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   setPublicFolder([]);
-  //   for (const key in folderSet) {
-  //     if (!publicFolder.includes(folderSet[key].folderName)) {
-  //       setPublicFolder((old) => [...old, folderSet[key].folderName]);
-  //     }
-  //   }
-  // }, [folderSet]);
 
   function setMyGallery(user) {
     // console.log("setMyGallery");
@@ -130,18 +134,6 @@ function Home() {
 
   const [member, setMember] = useState("");
 
-  const handleEnterKeyAddMember = (e) => {
-    if (e.key === "Enter") {
-      addMember(member, folderShortName);
-    }
-  };
-
-  const handleEnterKeyRemoveMember = (e) => {
-    if (e.key === "Enter") {
-      removeMember(member, folderShortName);
-    }
-  };
-
   function exitToFolderMain(e, user) {
     exitToFolder(e, user);
     if (e == folder) {
@@ -158,6 +150,19 @@ function Home() {
       folder.indexOf("/") + 1,
       folder.lastIndexOf("/")
     );
+
+    const handleEnterKeyAddMember = (e) => {
+      if (e.key === "Enter") {
+        console.log("addMember " + member + " in " + folderShortName);
+        addMember(member, folderShortName);
+      }
+    };
+
+    const handleEnterKeyRemoveMember = (e) => {
+      if (e.key === "Enter") {
+        removeMember(member, folderShortName);
+      }
+    };
     return (
       <div className={styles.softColorMember}>
         {adminPublicFolder.includes(folderShortName) ? (
@@ -296,8 +301,8 @@ function Home() {
                   ))}
                 </SubMenu>
               </SubMenu>
-              <MenuItem> Profilo utente </MenuItem>
-              <MenuItem onClick={() => testHome()}>test button</MenuItem>
+              {/* <MenuItem> Profilo utente </MenuItem>
+              <MenuItem onClick={() => testHome()}>test button</MenuItem> */}
             </Menu>
           </Sidebar>
           <div className={styles.mainBox}>

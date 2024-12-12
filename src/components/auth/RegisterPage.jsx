@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Header from "../header/Header";
 import { registerAuth } from "./AuthPage";
 import styles from "./authPage.module.css";
-import { fireStorage } from "../firebase/firebase-config";
-import { uploadString, ref } from "firebase/storage";
 import { newUser } from "../realtimeDatabase/RealtimeDatabase";
 
 export default function RegisterPage() {

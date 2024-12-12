@@ -1,1 +1,43 @@
-node: v20.12.2
+BREVE DESCRIZIONE:
+
+Il progetto si prepone l'obbiettivo di creare un archivio online per ogni utente che si registra
+assegnado un area privata dove caricare scaricare e vedere i propri file
+e la possibilità di creare delle cartelle condivise dove più utenti possono interagire.
+E' pensato per essere una galleria online di foto per condividere quelle della vacanza o altro.
+
+
+INDICAZIONI SULLE LIMITAZIONI DEL PROGETTO:
+
+I file caricati devono avere solo nomi con lettere numeri e "-", non sono supportati altri formati.
+I dati inseriti dall'utente hanno il solo scopo di tenere traccia di alcuni dati, (l'età è un valore vincolante).
+Non sono implementati servizi di recupero password e cancellazione account.
+
+
+INFORMAZIONI DI PROGETTO:
+
+Il progetto è sviluppato con react, vite, js, css, html
+Tutte le funzionalità di autenticazione e storage sono appoggiate a firebase,
+    RealtimeDatabase per le informazioni, storage per i file.
+Le notifiche vengono immagazzinate finche l'utente non è online,
+    dopo l'invio vengono cancellate, come una notifica di whatsapp.
+L'area privata non è condivisibile.
+Nelle cartelle publiche solo chi ha creato la cartella condivisa può cancellarla, aggiungere e rimuovere membri.
+Ci sono molte parti di codice non utilizzato o commentate, mi piace tenerle per vari motivi,
+    non dovrebbero disturbare la leggibilità del codice
+
+
+PROBLEMI RISCONTRATI:
+
+Le politiche CORS.
+
+
+MIGLIORIE APPORTABILI CON GLI STESSI MECCANISMI UTILIZZATI:
+
+Dividere di più il codice per evitare il caos, sopratutto Home.jsx.
+Aggiungere la possibilità di scaricare e cancellare più file contemporaneamente.
+Aggiungere una lista dei membri di una cartella pubblica.
+Aggiungere la possibilità di recuparare password e rimuovere l'account.
+Rendere disponibili tutti i nomi dei file come i nomi su pc.
+Aggiungere più informazioni utente per poter creare una pagina profilo utente che abbia un senso di esistere (magari un immagine).
+Aggiungere le notifiche per caricamento o cancellazion di un file.
+Rendere disponibile un pannello di impostazioni per modificare le notifiche alla quale siamo interessati.

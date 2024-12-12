@@ -1,10 +1,11 @@
 import Header from "./components/header/Header";
-
+import { notifierRequest } from "./components/notifier/Notifier";
 import styles from "./app.module.css";
 
 // Questa è la pagina di facciata, vorrei usarla per creare una pagina che viene vista solo una volta
 // appena si entra, una pagina di welcome
 function App() {
+  notifierRequest("Hello!");
   return (
     <div className="App">
       <Header />

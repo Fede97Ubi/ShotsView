@@ -1,5 +1,3 @@
-// al momento non fa parte del progetto
-
 import { CurrentUser } from "../auth/AuthPage";
 
 export default function FormFilter({ setFilter }) {

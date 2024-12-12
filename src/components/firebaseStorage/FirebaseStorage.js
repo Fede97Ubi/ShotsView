@@ -2,8 +2,6 @@ import { deleteObject, ref, getDownloadURL, listAll } from "firebase/storage";
 import { fireStorage } from "../firebase/firebase-config";
 
 export function deleteFolder(path) {
-  //   const delRef = ref(fireStorage, path);
-  //   deleteObject(delRef);
   const folderRefTry = ref(
     fireStorage,
     // "users-private-folders/" + authUser.email + "-id/files"

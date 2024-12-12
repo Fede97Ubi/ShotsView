@@ -8,16 +8,10 @@ import {
   getDownloadURL,
   listAll,
   ref,
-  getBlob,
 } from "firebase/storage";
-import {
-  fireStorage,
-  auth,
-  realTimeDatabase,
-} from "../firebase/firebase-config";
+import { fireStorage, auth } from "../firebase/firebase-config";
 import { useEffect, useState } from "react";
 import { saveAs } from "file-saver";
-import axios from "axios";
 
 export default function Gallery({ filter, folder, setFolder }) {
   const [photoGallery, setPhotoGallery] = useState([]);

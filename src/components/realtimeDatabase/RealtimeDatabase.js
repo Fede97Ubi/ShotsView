@@ -1,5 +1,5 @@
 import { realTimeDatabase } from "../firebase/firebase-config";
-import { set, ref, onValue, get, child, remove } from "firebase/database";
+import { set, ref, onValue, get, child, remove, push } from "firebase/database";
 import { deleteFolder } from "../firebaseStorage/firebaseStorage";
 
 export const folderSet = new Set([]);
@@ -79,10 +79,14 @@ export function newPublicFolder(user, folderName) {
       const data = snapshot.val();
       const userFolderPath =
         "users/" + mailForRD(user) + "/publicFolder/" + folderName;
-      console.log(data.admin);
+      // console.log(data.admin);
       if (data.admin) {
-        console.log("nome galleria già in uso");
+        // console.log("nome galleria già in uso");
         // notifica galleria già esistente ----------------------------------------------------------------------------------------------------------------
+        const notificationPath = "users/" + mailForRD(user) + "/notification";
+        push(ref(realTimeDatabase, notificationPath), {
+          text: "il nome " + folderName + " è già in uso",
+        });
         return false;
       }
     })
@@ -140,6 +144,10 @@ export function addMember(member, folderName) {
         set(ref(realTimeDatabase, userFolderPath), {
           role: "member",
         });
+        const notificationPath = "users/" + mailForRD(member) + "/notification";
+        push(ref(realTimeDatabase, notificationPath), {
+          text: "Sei stato aggiunto alla galleria " + folderName + "!",
+        });
       }
     })
     .catch((error) => {
@@ -160,6 +168,10 @@ export function removeMember(member, folderName) {
       if (data.role) {
         remove(ref(realTimeDatabase, publicFolderPath));
         remove(ref(realTimeDatabase, userFolderPath));
+        const notificationPath = "users/" + mailForRD(member) + "/notification";
+        push(ref(realTimeDatabase, notificationPath), {
+          text: "Sei stato rimosso dalla galleria " + folderName + "!",
+        });
       }
     })
     .catch((error) => {
@@ -186,6 +198,10 @@ export function exitToFolder(folderName, user) {
         for (const member in data.member) {
           const memberPath = "users/" + member + "/publicFolder/" + folderName;
           remove(ref(realTimeDatabase, memberPath));
+          const notificationPath = "users/" + member + "/notification";
+          push(ref(realTimeDatabase, notificationPath), {
+            text: "La galleria " + folderName + " è stata chiusa",
+          });
         }
         // cancellare cartella da firebase
         deleteFolder("users-shared-folders/" + folderName + "/files");
@@ -214,7 +230,7 @@ export function mailFromRD(email) {
   return email.replace("%", ".");
 }
 
-// codice di test
+// codice di test non lo elimino perchè è un ripasso rapido di come funziona
 export function test() {
   // inserimento folderPubblica in user/publicFolder/key/folderName
   const path = "users/test6@test%com/publicFolder";

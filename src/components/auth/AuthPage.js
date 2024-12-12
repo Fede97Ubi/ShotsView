@@ -76,29 +76,6 @@ export const CurrentUser = () => {
   return "ospite";
 };
 
-// CANCELLARE
-// recupero email per operazioni su server
-// export function userMail() {
-//   if (auth.currentUser != null) {
-//     return auth.currentUser.email;
-//   } else {
-//     console.log(auth.currentUser);
-//     console.log("ospite");
-//   }
-// }
-
-// CANCELLARE
-// recupero id per operazioni su server
-// export function userID() {
-//   if (auth.currentUser != null) {
-//     return auth.currentUser.uid;
-//   } else {
-//     console.log("ospite");
-//   }
-// }
-
-//---------------------------------------------------------------------------
-
 //-----------------------------------
 export function useAuth() {
   const [authState, setAuthState] = useState({
@@ -117,12 +94,3 @@ export function useAuth() {
   return { auth, ...authState };
 }
 //---------------------------------------------------------------------------
-
-function AuthPage() {
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {});
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-}
